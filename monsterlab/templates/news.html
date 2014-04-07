@@ -389,23 +389,9 @@
         <ul style="margin-left:100px;">
 
             {% for news in newslist %}
-
-
-            <li><small> {{ news.time}} | </small><a href='{%url "home:show" news.id%}' target=_blank > {{ news.title }}</a><small> [<span title="2">2</span>]</small></li>
-
-
+            <li> <a href='{%url "home:show" news.id%}' target=_blank > {{news.title}}</a><small> [<span
+                    title="2">2</span>]</small></li><small>{{news.time}}</small><small>{{news.content|truncatewords:'30'}}</small>
             {% endfor %}
-
-        <li><small>03-01 | </small><a href="#" target=_blank >2222222222222222222222222222222</a><small> [<span title="2">2</span>]</small></li>
-        <li><small>03-01 | </small><a href="#" target=_blank >3333333333333333333333333333333</a><small> [<span title="3">3</span>]</small></li>
-        <li><small>03-01 | </small><a href="#" target=_blank >1111111111111111111111111111111</a><small> [<span title="1">1</span>]</small></li>
-        <li><small>03-01 | </small><a href="#" target=_blank >1111111111111111111111111111111</a><small> [<span title="1">1</span>]</small></li>
-        <li><small>03-01 | </small><a href="#" target=_blank >1111111111111111111111111111111</a><small> [<span title="1">1</span>]</small></li>
-        <li><small>03-01 | </small><a href="#" target=_blank >1111111111111111111111111111111</a><small> [<span title="1">1</span>]</small></li>
-        <li><small>03-01 | </small><a href="#" target=_blank >1111111111111111111111111111111</a><small> [<span title="1">1</span>]</small></li>
-        <li><small>03-01 | </small><a href="#" target=_blank >1111111111111111111111111111111</a><small> [<span title="1">1</span>]</small></li>
-        <li><small>03-01 | </small><a href="#" target=_blank >1111111111111111111111111111111</a><small> [<span title="1">1</span>]</small></li>
-
 
     
       <br>

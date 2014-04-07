@@ -1,21 +1,17 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings
 from django.views.generic import TemplateView,ListView,DetailView
-# Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+from login.views import register
 admin.autodiscover()
 from news.models import News
 urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'monsterlab.views.home', name='home'),
     # url(r'^monsterlab/', include('monsterlab.foo.urls')),
-    # url(r'^$',TemplateView.as_view(template_name="index.html")),
-#     url(r'login',views.login),
     url(r'^$',TemplateView.as_view(template_name="index.html")),
-    url(r'^login',TemplateView.as_view(template_name="login.html")),
     url(r'^contact',TemplateView.as_view(template_name="contact.html")),
     url(r'^member',TemplateView.as_view(template_name="member.html")),
-    url(r'^registr',TemplateView.as_view(template_name="registr.html")),
     url(r'^about',TemplateView.as_view(template_name="about.html")),
     url(r'^index',TemplateView.as_view(template_name="index.html")),
     url(r'^honor',TemplateView.as_view(template_name="honor.html")),
@@ -29,6 +25,8 @@ urlpatterns = patterns('',
             model=News,
             template_name='show_news.html'),
             name='show'),
-  #    url(r'^home$',TemplateView.as_view(template_name="text_app/home.html")),
-    # (r'^site_static/(?P.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_PATH}),
+    url(r'^login',TemplateView.as_view(template_name="login.html")),
+    url(r'^register',register,),
+    url(r'^loginout',TemplateView.as_view(template_name="index.html")),
+   # (r'^site_static/(?P.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_PATH}),
 )
