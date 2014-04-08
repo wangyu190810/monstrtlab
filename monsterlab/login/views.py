@@ -38,6 +38,24 @@ def login_validate(request,username,password):
             auth_login(request,user)
             return True
     return rtvalue
+def login(request):
+    error=[]
+    if request.method=='POST':
+        form=LoginForm(request.POST)
+        if form.is_valid():
+            data=form.cleaned_data
+            username=data['username']
+            password=data['password']
+            if login_validate(request,username,password):
+#               return render_to_response('index.html',{'user':username})
+                return render_to_response('index.html',{'user':username},context_instance=RequestContext(request));
+            else:
+                error.append('please in put eorrect password')
+        else:
+            error.append('Please input both username and password')
+    else:
+        form=LoginForm()
+    return render_to_response('login.html',{'error':error,'form':form})
 
 
 
