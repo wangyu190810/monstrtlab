@@ -1,0 +1,4 @@
+这是一个用django写的web
+主要是为了搭建我们monsterlab社团的网站,
+前台使用bootspart搭建，
+
