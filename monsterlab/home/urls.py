@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.conf import settings
 from django.views.generic import TemplateView,ListView,DetailView
 from django.contrib import admin
-from login.views import register,login
+from login.views import register,login,logout,forget_password,changepassword
 admin.autodiscover()
 from news.models import News
 urlpatterns = patterns('',
@@ -26,7 +26,11 @@ urlpatterns = patterns('',
             template_name='show_news.html'),
             name='show'),
     url(r'^login',login),
-    url(r'^register',register,),
-    url(r'^loginout',TemplateView.as_view(template_name="index.html")),
+    url(r'^register',register),
+    url(r'^logout',logout),
+    url(r'^forget',forget_password),
+    url(r'^changpassword',changepassword),
+#    url(r'^webuser'webuser),
+    
    # (r'^site_static/(?P.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_PATH}),
 )

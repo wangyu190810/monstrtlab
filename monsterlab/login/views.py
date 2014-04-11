@@ -9,7 +9,7 @@ from django.http import HttpResponseRedirect
 
 #找回密码
 from login.models import FindPassword
-from utils.utils import *
+#from utils.utils import *
 from threading import Thread
 from datetime import date
 import sys
@@ -69,36 +69,67 @@ def login(request):
     return render_to_response('login.html',{'error':error,'form':form})
 def logout(request):
     auth_logout(request)
-    return HttpResponseRedirect('regist')
+    return HttpResponseRedirect('register.html')
+
+
+def changepassword(request,username):
+    error=[]
+    if request.method=='POST':
+        form=ChangepwdForm(request.POST)
+        if form.is_valid():
+            data=form.cleaned_data
+            user=authenticate(username=username,password=data['old_pwd'])
+            if user is not None:
+                if data['new_pwd']==data['new_pwd2']:
+                    newuser=User.objects.get(username__exact=username)
+                    newuser.set_password(data['new_pwd'])
+                    newuser.save()
+                    return HttpResponseRedirect('login.html')
+                else:
+                    error.append('Please input the same password')
+            else:
+                error.append('Please correct the old password')
+        else:
+            error.append('Please input the required domin')
+    else:
+        form=ChangepwdForm()
+    return render_to_response('Changepassword,html',{'form':form,'error':error})
+
+
+
+
 
 def forget_password(request):
-    emial=request.POST['email']
-    user=User.objects.get(email=email)
-    if user:
-        #生成字符串
-        activation_key=random_string(random,randint(10,20));
-        findPasses=FindPassword.objects.filter(username=user.username)
-        if findPasses:
-            findPass=findPasses[0]
-            findPass.activetion_key=activetion_key
-        else:
-            findPass=FindPass(username=user.username,activetion_key=activetion_key)
-        findPass.save()
-        th=Thread(target=send_html_mail,
-                args=('重置密码！3天有效',
-                    'click hte url
-                    http://127.0.0.1:8000/resetpassword'+activetion_key,
-                    [email]))
-                th.start()
+    if not request.POST.has_key('email'):
 
-                return render_to_response('forgetpassword.html')
-    else:
-        return render_to_response('404.html')
+        email=request.POST['email']
+        user=User.objects.get(email=email)
+        if user:
+            #生成字符串
+            activation_key=random_string(random,randint(10,20));
+            findPasses=FindPassword.objects.filter(username=user.username)
+            if findPasses:
+                findPass=findPasses[0]
+                findPass.activetion_key=activetion_key
+            else:
+                findPass=FindPass(username=user.username,activetion_key=activetion_key)
+            findPass.save()
+            th=Thread(target=send_html_mail,
+                    args=('重置密码！3天有效',
+                        'click hte url http://127.0.0.1:8000/resetpassword'+activetion_key,
+                        [email]))
+            th.start()
+    
+            return render_to_response('forgetpassword.html')
+        else:
+            return render_to_response('404.html')
+    return render_to_response('forgetpassword.html')
+    
 def random_string(num):
     password=''
     seed=string.letters+string.digits
     for i in  range(num):
-        password +=seed[random.randrange(1,len(seed)]
+        password +=seed[random.randrange(1,len(seed))]
     return password
 
 def begin_reset_password(request,activetion_key):
@@ -125,7 +156,6 @@ def reset_password(request):
         return render_to_response('reset_password_success.html')
     else:
         return render_to_response('404.html')
-    else:
         
 
 
