@@ -3,6 +3,7 @@ from django.conf import settings
 from django.views.generic import TemplateView,ListView,DetailView
 from django.contrib import admin
 from login.views import register,login,logout,forget_password,changepassword
+from ordinaryUser.views import ordinaryuser
 admin.autodiscover()
 from news.models import News
 urlpatterns = patterns('',
@@ -30,7 +31,7 @@ urlpatterns = patterns('',
     url(r'^logout',logout),
     url(r'^forget',forget_password),
     url(r'^changpassword',changepassword),
-#    url(r'^webuser'webuser),
+    url(r'^user',ordinaryuser),
     
    # (r'^site_static/(?P.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_PATH}),
 )

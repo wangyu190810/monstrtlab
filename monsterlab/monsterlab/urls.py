@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+import settings
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 from news.models import News
@@ -35,9 +36,12 @@ urlpatterns = patterns('',
     #        name='show_news'),
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
+    url(r'weblog/',include('zinnia.urls')),
+    url(r'comments/',include('django.contrib.comments.urls')),
+
    #url(r'^news',include('news.urls')),
   # url(r'^$',)
   # url(r'text_app2/',include('text_app2.urls')),
-    # (r'^site_static/(?P.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_PATH}),
+     (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_PATH}),
 )
 

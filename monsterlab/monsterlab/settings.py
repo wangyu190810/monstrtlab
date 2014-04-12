@@ -50,12 +50,12 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = r'./media'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://example.com/media/", "http://media.example.com/"
-MEDIA_URL = ''
+MEDIA_URL = '/media/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
@@ -93,7 +93,15 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
 #     'django.template.loaders.eggs.Loader',
 )
-
+#zinnia config
+#TEMPLATE_CONTEXT_PROCESSORS=(
+#   #     'diango.contrib.auth.context_processors.auth',
+#        'diango.core.context_processors.i18n',
+#        'diango.core.context_processors.request',
+#        'zinnia.context_processors.version',
+#        )
+#
+#
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -158,3 +166,6 @@ LOGGING = {
         },
     }
 }
+
+STATIC_PATH="./media"
+
